@@ -1,0 +1,90 @@
+.Output_Textarea {
+    width: 908px;
+    height: 200px;
+    margin: 0px auto 100px auto;
+    resize: none;
+}
+
+.Main_Area_Row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.Main_Area_Row:last-child {
+    margin-bottom: 0;
+}
+
+.Key {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background: #3a424e;
+    border-radius: 1px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.Key:last-child {
+    margin-right: 0;
+}
+
+.Key:hover {
+    background: linear-gradient(#e0dd18, #b12222);
+    cursor: pointer;
+}
+
+.Backspace {
+    width: 133px;
+    background: #1c232e;
+}
+
+.Tab {
+    width: 65px;
+    background: #1c232e;
+}
+
+.Delete {
+    width: 58px;
+    background: #1c232e;
+}
+
+.CapsLock {
+    width: 133px;
+    background: #1c232e;
+}
+
+.Enter {
+    width: 110px;
+    background: #1c232e;
+}
+
+.LeftShift {
+    width: 133px;
+    background: #1c232e;
+}
+
+.RightShift {
+    background: #1c232e;
+}
+
+.Control {
+    width: 83px;
+    background: #1c232e;
+}
+
+.Windows {
+    background: #1c232e;
+}
+
+.Alt {
+    background: #1c232e;
+}
+
+.Space {
+    width: 367px;
+    background: #1c232e;
+}
+
+.Arrow {
+    background: #1c232e;
+}
