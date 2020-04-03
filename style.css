@@ -22,6 +22,10 @@
     border-radius: 1px;
     text-align: center;
     line-height: 50px;
+    box-shadow: 0.4em 0.4em 5px black;
+    font-weight: bold;
+    font-family: Arial;
+    color: white;
 }
 
 .Key:last-child {
@@ -68,7 +72,7 @@
 }
 
 .Control {
-    width: 83px;
+    width: 84px;
     background: #1c232e;
 }
 
@@ -87,4 +91,10 @@
 
 .Arrow {
     background: #1c232e;
+}
+
+.Button_Pressed {
+    background: linear-gradient(#e0dd18, #b12222);
+    transform: translate(4px, 4px);
+    transition: all 0.1s ease 0s;
 }
