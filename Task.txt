@@ -53,7 +53,7 @@ Yes
 Yes
 
 17)   Shift - функционал реализован
-Yes, by mouse not working yet
+Yes, by mouse working too ))))
 
 
 

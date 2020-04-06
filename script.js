@@ -65,9 +65,9 @@ Main_Area.children[1].children[0].classList.add('Tab');
 Main_Area.children[1].children[14].classList.add('Delete');
 Main_Area.children[2].children[0].classList.add('CapsLock');
 Main_Area.children[2].children[12].classList.add('Enter');
-Main_Area.children[3].children[0].classList.add('LeftShift');
+Main_Area.children[3].children[0].classList.add('ShiftLeft');
 Main_Area.children[3].children[12].classList.add('Arrow');
-Main_Area.children[3].children[13].classList.add('RightShift');
+Main_Area.children[3].children[13].classList.add('ShiftRight');
 Main_Area.children[4].children[0].classList.add('Control');
 Main_Area.children[4].children[1].classList.add('Windows');
 Main_Area.children[4].children[2].classList.add('Alt');
@@ -354,8 +354,8 @@ Body.addEventListener('keyup', (event) =>
             }  
     });
 
-// Pressing on shift by mouse not working    
-/*    
+
+// Pressing on Shift by mouse   
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) 
@@ -366,7 +366,7 @@ Main_Area.addEventListener('mousedown', event =>
             }
     });
 
-    
+   
 Main_Area.addEventListener('mouseup', event => 
     {
         if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) 
@@ -376,8 +376,7 @@ Main_Area.addEventListener('mouseup', event =>
                 Write_Letters_On_Keys();
             }
         
-    });
-*/
+    }); 
    
 
 // If TAB pressed 
