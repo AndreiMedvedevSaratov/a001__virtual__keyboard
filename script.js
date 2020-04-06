@@ -78,9 +78,18 @@ Main_Area.children[4].children[6].classList.add('Arrow');
 Main_Area.children[4].children[7].classList.add('Arrow');
 Main_Area.children[4].children[8].classList.add('Arrow');
 
+// Info about operation system and the way to change keyboard layout
+const Paragraph = document.createElement('p');  
+document.body.append(Paragraph);
+Paragraph.classList.add('Paragraph');
+Paragraph.textContent = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: alt + shift';
+
+
+//el.innetHTML = '<p>text</p>'
+
+
 
 // Key codes for every button, each key is an object
-
 const Key_Codes= [                                               
     [
         { Key_Code: 'Backquote', English: '`', Russian: 'ё', Output_Flag: true, CapsRus: 'Ё', CapsEng: '~' },
@@ -400,9 +409,7 @@ Body.addEventListener('keydown', (event) =>
     {
         if (event.keyCode === 8) 
             {
-//                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-                Output_Textarea.focus();
             }  
     });
 
@@ -410,9 +417,7 @@ Main_Area.addEventListener('mousedown', event =>
     {
         if (event.target.classList.contains('Backspace')) 
             {
-//                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-                Output_Textarea.focus();
             }
     });
 
