@@ -5,7 +5,7 @@ const Output_Textarea = document.createElement('textarea');
 // Adding textarea for output
 document.body.append(Output_Textarea);
 Output_Textarea.classList.add('Output_Textarea');
-Output_Textarea.setAttribute('readonly', 'readonly');
+// Output_Textarea.setAttribute('readonly', 'readonly');
 
 
 // Constant for keyboard
@@ -168,6 +168,10 @@ const Key_Codes= [
 let Current_Language = 'Russian';
 
 
+// Working with local storage to install saved earlier language
+if (localStorage.Stored_Language !== null) Current_Language = localStorage.Stored_Language;
+
+
 // Constant for pressed CapsLock or not pressed CapsLock
 let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
 
@@ -221,8 +225,16 @@ Body.addEventListener('keydown', (event) =>
         event.preventDefault();
         if ((Pressed_First_Key === 16 && event.keyCode === 18) || (Pressed_First_Key === 18 && event.keyCode === 16)) 
             {
-                if (Current_Language === 'English') Current_Language = 'Russian';
-                    else Current_Language = 'English';
+                if (Current_Language === 'English') 
+                    {
+                        Current_Language = 'Russian';
+                        localStorage.Stored_Language = "Russian";  // Working with local storage to save selected language
+                    }
+                    else 
+                        {
+                            Current_Language = 'English';
+                            localStorage.Stored_Language = "English";  // Working with local storage to save selected language
+                        }
                 Write_Letters_On_Keys();
                 return;
             }  
@@ -265,7 +277,7 @@ Main_Area.addEventListener('mouseup', event =>
             }
     });
 
-    Main_Area.addEventListener('mouseout', event => 
+Main_Area.addEventListener('mouseout', event => 
     {
         if (event.target.classList.contains('Key')) 
             {
@@ -297,7 +309,6 @@ Body.addEventListener('keydown', (event) =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }  
     });
 
@@ -309,7 +320,6 @@ Main_Area.addEventListener('mousedown', event =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }
     });
 
@@ -322,7 +332,6 @@ Body.addEventListener('keydown', (event) =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }  
     });
 
@@ -333,7 +342,6 @@ Body.addEventListener('keyup', (event) =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }  
     });
 
@@ -346,7 +354,6 @@ Main_Area.addEventListener('mousedown', event =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }
     });
 
@@ -358,7 +365,6 @@ Main_Area.addEventListener('mouseup', event =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
-                return;
             }
         
     });
@@ -368,50 +374,35 @@ Main_Area.addEventListener('mouseup', event =>
 // If TAB pressed 
 Body.addEventListener('keydown', (event) => 
     {
-        if (event.keyCode === 9) 
-            {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-                return;
-            }  
+        if (event.keyCode === 9) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
-        if (event.target.classList.contains('Tab')) 
-            {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-                return;
-            }
+        if (event.target.classList.contains('Tab')) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
     });
 
 
 // If Enter pressed 
 Body.addEventListener('keydown', (event) => 
     {
-        if (event.keyCode === 13) 
-            {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-                return;
-            }  
+        if (event.keyCode === 13) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
-        if (event.target.classList.contains('Enter')) 
-            {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-                return;
-            }
+        if (event.target.classList.contains('Enter')) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
     });
 
-/*
+
 // If BackSpace pressed 
 Body.addEventListener('keydown', (event) => 
     {
         if (event.keyCode === 8) 
             {
-                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
-                return;
+//                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
+                Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
+                Output_Textarea.focus();
             }  
     });
 
@@ -419,12 +410,30 @@ Main_Area.addEventListener('mousedown', event =>
     {
         if (event.target.classList.contains('Backspace')) 
             {
-                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
-                return;
+//                Output_Textarea.value = Output_Textarea.value.substring(0, Output_Textarea.value.length - 1);
+                Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
+                Output_Textarea.focus();
             }
     });
 
- */
+
+// If Del pressed 
+Body.addEventListener('keydown', (event) => 
+    {
+        if (event.keyCode === 46) 
+            {
+                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+            }  
+    });
+
+Main_Area.addEventListener('mousedown', event => 
+    {
+        if (event.target.classList.contains('Delete')) 
+            {
+                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+            }
+    });
+
 
     
     
