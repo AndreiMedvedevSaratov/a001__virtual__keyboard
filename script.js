@@ -409,6 +409,7 @@ Body.addEventListener('keydown', (event) =>
         if (event.keyCode === 8) 
             {
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
+                Output_Textarea.focus();
             }  
     });
 
@@ -417,6 +418,7 @@ Main_Area.addEventListener('mousedown', event =>
         if (event.target.classList.contains('Backspace')) 
             {
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
+                Output_Textarea.focus();
             }
     });
 
@@ -426,7 +428,8 @@ Body.addEventListener('keydown', (event) =>
     {
         if (event.keyCode === 46) 
             {
-                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+               Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+               Output_Textarea.focus();
             }  
     });
 
@@ -435,8 +438,12 @@ Main_Area.addEventListener('mousedown', event =>
         if (event.target.classList.contains('Delete')) 
             {
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+                Output_Textarea.focus();
             }
     });
+
+
+ 
 
 
     

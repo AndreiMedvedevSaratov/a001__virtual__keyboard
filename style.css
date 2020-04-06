@@ -3,6 +3,9 @@
     height: 200px;
     margin: 0px auto 100px auto;
     resize: none;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 20px;
 }
 
 .Main_Area_Row {
