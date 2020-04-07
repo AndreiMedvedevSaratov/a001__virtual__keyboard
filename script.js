@@ -78,15 +78,12 @@ Main_Area.children[4].children[6].classList.add('Arrow');
 Main_Area.children[4].children[7].classList.add('Arrow');
 Main_Area.children[4].children[8].classList.add('Arrow');
 
+
 // Info about operation system and the way to change keyboard layout
 const Paragraph = document.createElement('p');  
 document.body.append(Paragraph);
 Paragraph.classList.add('Paragraph');
 Paragraph.textContent = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: alt + shift';
-
-
-//el.innetHTML = '<p>text</p>'
-
 
 
 // Key codes for every button, each key is an object
@@ -441,12 +438,3 @@ Main_Area.addEventListener('mousedown', event =>
                 Output_Textarea.focus();
             }
     });
-
-
- 
-
-
-    
-    
-    
-
