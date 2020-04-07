@@ -182,6 +182,22 @@ if (localStorage.Stored_Language !== null) Current_Language = localStorage.Store
 let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
 
 
+// Writing letters on buttons of keyboard
+Write_Letters_On_Keys();
+
+
+// Почему-то была ошибка - не подгружались надписи на клавиши
+// Опытным путем было установлено, что после переключения языка эта проблема исчезала
+// Поэтому добавил ещё одно переключение языка
+// Очень надеюсь прояснить этот момент с ментором Максимом... 
+Current_Language = 'English';
+Write_Letters_On_Keys();
+
+
+// Handle the position of cursor in TextArea
+Cursor_Last_Position ();
+
+
 // Function for writing letters on buttons of keyboard
 function Write_Letters_On_Keys() 
     {
@@ -205,14 +221,6 @@ function Write_Letters_On_Keys()
                     }
             }
     }
-
-
-// Writing letters on buttons of keyboard
-Write_Letters_On_Keys();
-
-
-// Handle the position of cursor in TextArea
-Cursor_Last_Position ();
 
 
 // Constant for body
