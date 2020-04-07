@@ -189,13 +189,13 @@ Write_Letters_On_Keys();
 // Почему-то была ошибка - не подгружались надписи на клавиши
 // Опытным путем было установлено, что после переключения языка эта проблема исчезала
 // Поэтому добавил ещё одно переключение языка
-// Очень надеюсь прояснить этот момент с ментором Максимом... 
+// Очень надеюсь прояснить этот момент с ментором Максимом...
 Current_Language = 'English';
 Write_Letters_On_Keys();
 
 
 // Handle the position of cursor in TextArea
-Cursor_Last_Position ();
+//Cursor_Last_Position ();
 
 
 // Function for writing letters on buttons of keyboard
@@ -276,7 +276,7 @@ function Output_Printing(Letter_For_Printing)
 
         Output_Textarea.textContent = Output_Textarea.textContent + Char;
 
-        Cursor_Last_Position ();
+//       Cursor_Last_Position ();
     }
 
 // What to do if click by left button of Mouse?
@@ -394,13 +394,13 @@ Main_Area.addEventListener('mouseup', event =>
 Body.addEventListener('keydown', (event) => 
     {
         if (event.keyCode === 9) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-        Cursor_Last_Position ();
+//       Cursor_Last_Position ();
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('Tab')) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-        Cursor_Last_Position ();
+//        Cursor_Last_Position ();
     });
 
 
@@ -408,13 +408,13 @@ Main_Area.addEventListener('mousedown', event =>
 Body.addEventListener('keydown', (event) => 
     {
         if (event.keyCode === 13) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-        Cursor_Last_Position ();
+//        Cursor_Last_Position ();
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('Enter')) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-        Cursor_Last_Position ();
+//        Cursor_Last_Position ();
     });
 
 
@@ -425,7 +425,7 @@ Body.addEventListener('keydown', (event) =>
             {
                 event.preventDefault();
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-                Cursor_Last_Position ();
+//                Cursor_Last_Position ();
             }  
     });
 
@@ -461,7 +461,7 @@ Main_Area.addEventListener('mousedown', event =>
             }
     });   
 
-
+/*
 function Cursor_Last_Position ()
     {
         Output_Textarea.value.length;
@@ -469,3 +469,4 @@ function Cursor_Last_Position ()
         Output_Textarea.selectionEnd = Output_Textarea.value.length;
         Output_Textarea.focus();
     }
+*/
