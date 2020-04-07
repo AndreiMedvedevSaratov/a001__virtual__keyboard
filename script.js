@@ -211,6 +211,10 @@ function Write_Letters_On_Keys()
 Write_Letters_On_Keys();
 
 
+// Handle the position of cursor in TextArea
+Cursor_Last_Position ();
+
+
 // Constant for body
 const Body = document.querySelector('body');
 
@@ -263,6 +267,8 @@ function Output_Printing(Letter_For_Printing)
         if (Current_Language === 'Russian' && Caps_Lock_Pressed === 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
 
         Output_Textarea.textContent = Output_Textarea.textContent + Char;
+
+        Cursor_Last_Position ();
     }
 
 // What to do if click by left button of Mouse?
@@ -380,11 +386,13 @@ Main_Area.addEventListener('mouseup', event =>
 Body.addEventListener('keydown', (event) => 
     {
         if (event.keyCode === 9) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+        Cursor_Last_Position ();
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('Tab')) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+        Cursor_Last_Position ();
     });
 
 
@@ -392,11 +400,13 @@ Main_Area.addEventListener('mousedown', event =>
 Body.addEventListener('keydown', (event) => 
     {
         if (event.keyCode === 13) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+        Cursor_Last_Position ();
     });
 
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('Enter')) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+        Cursor_Last_Position ();
     });
 
 
@@ -405,8 +415,9 @@ Body.addEventListener('keydown', (event) =>
     {
         if (event.keyCode === 8) 
             {
+                event.preventDefault();
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-                Output_Textarea.focus();
+                Cursor_Last_Position ();
             }  
     });
 
@@ -414,6 +425,7 @@ Main_Area.addEventListener('mousedown', event =>
     {
         if (event.target.classList.contains('Backspace')) 
             {
+                event.preventDefault();
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
                 Output_Textarea.focus();
             }
@@ -425,8 +437,9 @@ Body.addEventListener('keydown', (event) =>
     {
         if (event.keyCode === 46) 
             {
-               Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
-               Output_Textarea.focus();
+                event.preventDefault();
+                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
+                Output_Textarea.focus();
             }  
     });
 
@@ -434,7 +447,17 @@ Main_Area.addEventListener('mousedown', event =>
     {
         if (event.target.classList.contains('Delete')) 
             {
+                event.preventDefault();
                 Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
                 Output_Textarea.focus();
             }
-    });
+    });   
+
+
+function Cursor_Last_Position ()
+    {
+        Output_Textarea.value.length;
+        Output_Textarea.selectionStart = Output_Textarea.value.length;
+        Output_Textarea.selectionEnd = Output_Textarea.value.length;
+        Output_Textarea.focus();
+    }
