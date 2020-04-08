@@ -186,16 +186,8 @@ let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
 Write_Letters_On_Keys();
 
 
-// Почему-то была ошибка - не подгружались надписи на клавиши
-// Опытным путем было установлено, что после переключения языка эта проблема исчезала
-// Поэтому добавил ещё одно переключение языка
-// Очень надеюсь прояснить этот момент с ментором Максимом...
 Current_Language = 'English';
 Write_Letters_On_Keys();
-
-
-// Handle the position of cursor in TextArea
-//Cursor_Last_Position ();
 
 
 // Function for writing letters on buttons of keyboard
@@ -275,9 +267,88 @@ function Output_Printing(Letter_For_Printing)
         if (Current_Language === 'Russian' && Caps_Lock_Pressed === 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
 
         Output_Textarea.textContent = Output_Textarea.textContent + Char;
-
-//       Cursor_Last_Position ();
     }
+
+
+Body.addEventListener('keydown', (event) => 
+    {
+        switch (event.keyCode) 
+        {
+            case 8 :     // Backspace
+                {
+                    let Text = Output_Textarea.value;
+                    const Sel_Start = Output_Textarea.selectionStart;
+                    if (Sel_Start > 0 && Sel_Start <= Text.length) 
+                        {
+                            Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
+                            Output_Textarea.value = Text;
+                            Output_Textarea.selectionStart = Sel_Start - 1;
+                            Output_Textarea.selectionEnd = Sel_Start - 1;
+                        }
+                }  
+            case 46 :    // Delete 
+                {
+                    if (Output_Textarea.selectionStart <= Output_Textarea.value.length) 
+                        {
+                            Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
+                                + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
+                            Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
+                        }
+                } 
+            case 13 :    // Enter
+                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+            case 9 :     // Tab
+                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+            case 16 :    // Shift 
+                {
+                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+                        else Caps_Lock_Pressed = 'Yes';
+                    Write_Letters_On_Keys();
+                }
+        }      
+    });
+
+
+Main_Area.addEventListener('mousedown', event => 
+    {
+        let x = 0;
+
+        if (event.target.classList.contains('Delete')) x = 1;
+        if (event.target.classList.contains('Backspace')) x = 2;
+        if (event.target.classList.contains('Enter')) x = 3;
+        if (event.target.classList.contains('Tab')) x = 4;
+
+        switch (x) 
+        {
+            case 1 :      // Delete
+                {
+                    if (Output_Textarea.selectionStart <= Output_Textarea.value.length) 
+                    {
+                        Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
+                            + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
+                        Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
+                    }
+                }
+            case 2 :      // Backspace
+                {
+                    let Text = Output_Textarea.value;
+                    const Sel_Start = Output_Textarea.selectionStart;
+                    if (Sel_Start > 0 && Sel_Start <= Text.length) 
+                        {
+                            Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
+                            Output_Textarea.value = Text;
+                            Output_Textarea.selectionStart = Sel_Start - 1;
+                            Output_Textarea.selectionEnd = Sel_Start - 1;
+                        }
+                }
+            case 3 :      // Enter
+                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+            case 4 :      // Tab
+                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+
+        }
+    });
+
 
 // What to do if click by left button of Mouse?
 Main_Area.addEventListener('mousedown', event => 
@@ -345,16 +416,6 @@ Main_Area.addEventListener('mousedown', event =>
 
 
 // If Shift pressed changing keyboard state
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 16) 
-            {
-                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
-                Write_Letters_On_Keys();
-            }  
-    });
-
 Body.addEventListener('keyup', (event) => 
     {
         if (event.keyCode === 16) 
@@ -389,84 +450,3 @@ Main_Area.addEventListener('mouseup', event =>
         
     }); 
    
-
-// If TAB pressed 
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 9) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-//       Cursor_Last_Position ();
-    });
-
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Tab')) Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-//        Cursor_Last_Position ();
-    });
-
-
-// If Enter pressed 
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 13) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-//        Cursor_Last_Position ();
-    });
-
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Enter')) Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-//        Cursor_Last_Position ();
-    });
-
-
-// If BackSpace pressed 
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 8) 
-            {
-                event.preventDefault();
-                Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-//                Cursor_Last_Position ();
-            }  
-    });
-
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Backspace')) 
-            {
-                event.preventDefault();
-                Output_Textarea.setRangeText('', Output_Textarea.selectionStart - 1, Output_Textarea.selectionEnd);
-                Output_Textarea.focus();
-            }
-    });
-
-
-// If Del pressed 
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 46) 
-            {
-                event.preventDefault();
-                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
-                Output_Textarea.focus();
-            }  
-    });
-
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Delete')) 
-            {
-                event.preventDefault();
-                Output_Textarea.setRangeText('', Output_Textarea.selectionStart, Output_Textarea.selectionEnd + 1);
-                Output_Textarea.focus();
-            }
-    });   
-
-/*
-function Cursor_Last_Position ()
-    {
-        Output_Textarea.value.length;
-        Output_Textarea.selectionStart = Output_Textarea.value.length;
-        Output_Textarea.selectionEnd = Output_Textarea.value.length;
-        Output_Textarea.focus();
-    }
-*/
