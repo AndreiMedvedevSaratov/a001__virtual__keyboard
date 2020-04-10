@@ -7,7 +7,7 @@ if (localStorage.Stored_Language !== null && localStorage.Stored_Language !== un
 
 
 // Constant for pressed CapsLock or not pressed CapsLock
-let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
+var Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
 
 
 // Text area for output letters
@@ -248,14 +248,14 @@ Body.addEventListener('keydown', (event) =>
 function Output_Printing(Letter_For_Printing) 
     {
         let Char = '';
-        
+      
         if (Letter_For_Printing.dataset.Output_Flag === 'false') return;
         if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Char = Letter_For_Printing.dataset.English;
         if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No')  Char = Letter_For_Printing.dataset.Russian;
         if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsEng;
         if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
 
-        Output_Textarea.textContent = Output_Textarea.textContent + Char;
+        Output_Textarea.value = Output_Textarea.value + Char;
     }
 
 
@@ -275,6 +275,7 @@ Body.addEventListener('keydown', (event) =>
                             Output_Textarea.selectionEnd = Sel_Start - 1;
                         }
                 }  
+                break;
             case 46 :    // Delete 
                 {
                     if (Output_Textarea.selectionStart <= Output_Textarea.value.length) 
@@ -284,16 +285,31 @@ Body.addEventListener('keydown', (event) =>
                             Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
                         }
                 } 
+                break;
             case 13 :    // Enter
                 {
-                    Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+                    Output_Textarea.value = Output_Textarea.value + '\n';
                 }
+                break;
             case 16 :    // Shift 
                 {
                     if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                         else Caps_Lock_Pressed = 'Yes';
                     Write_Letters_On_Keys();
                 }
+                break;
+            case 20 :    // CapsLock
+                {
+                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+                        else Caps_Lock_Pressed = 'Yes';
+                    Write_Letters_On_Keys();
+                }
+                break;
+            case 9 :     // Tab
+                {
+                    Output_Textarea.value = Output_Textarea.value + '\t';
+                }
+                break;
         }      
     });
 
@@ -305,6 +321,7 @@ Main_Area.addEventListener('mousedown', event =>
         if (event.target.classList.contains('Delete')) x = 1;
         if (event.target.classList.contains('Backspace')) x = 2;
         if (event.target.classList.contains('Enter')) x = 3;
+        if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) x = 4;
 
         switch (x) 
         {
@@ -316,6 +333,7 @@ Main_Area.addEventListener('mousedown', event =>
                             + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
                         Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
                     }
+                    break;
                 }
             case 2 :      // Backspace
                 {
@@ -328,10 +346,19 @@ Main_Area.addEventListener('mousedown', event =>
                             Output_Textarea.selectionStart = Sel_Start - 1;
                             Output_Textarea.selectionEnd = Sel_Start - 1;
                         }
+                    break;
                 }
             case 3 :      // Enter
                 {
-                    Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+                    Output_Textarea.value = Output_Textarea.value + '\n';
+                    break;
+                }
+            case 4 :      // Shift
+                {
+                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+                        else Caps_Lock_Pressed = 'Yes';
+                    Write_Letters_On_Keys();
+                    break;
                 }
         }
     });
@@ -388,16 +415,6 @@ Body.addEventListener('keyup', (event) =>
 
 
 // If CapsLock pressed changing keyboard state 
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 20) 
-            {
-                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
-                Write_Letters_On_Keys();
-            }  
-    });
-
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('CapsLock')) 
@@ -411,19 +428,11 @@ Main_Area.addEventListener('mousedown', event =>
 
 
 // If Tab pressed
-Body.addEventListener('keydown', (event) => 
-    {
-        if (event.keyCode === 9) 
-            {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-            }  
-    });
-
 Main_Area.addEventListener('mousedown', event => 
     {
         if (event.target.classList.contains('Tab')) 
             {
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+                Output_Textarea.value = Output_Textarea.value + '\t';
             }
     });
 
@@ -441,17 +450,6 @@ Body.addEventListener('keyup', (event) =>
 
 
 // Pressing on Shift by mouse   
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) 
-            {
-                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
-                Write_Letters_On_Keys();
-            }
-    });
-
-   
 Main_Area.addEventListener('mouseup', event => 
     {
         if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) 
@@ -464,13 +462,6 @@ Main_Area.addEventListener('mouseup', event =>
     }); 
    
 
-
-
-// console.log ('language =' + Current_Language);
-// console.log ('Capslock =' + Caps_Lock_Pressed);
-// console.log ('localStorage.Stored_Language' + localStorage.Stored_Language);
-
-
-// Writing letters on buttons of keyboard
+    // Writing letters on buttons of keyboard
 Write_Letters_On_Keys();
 
