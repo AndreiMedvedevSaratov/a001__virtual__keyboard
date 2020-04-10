@@ -1,0 +1,27 @@
+{
+  "name": "codejam-virtual-keyboard",
+  "version": "1.0.0",
+  "description": "Virtual keyboard by Andrei Medvedev",
+  "main": "script.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreiMedvedevSaratov/codejam-virtual-keyboard.git"
+  },
+  "keywords": [
+    "Virtual",
+    "Keyboard"
+  ],
+  "author": "Andrei Medvedev",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AndreiMedvedevSaratov/codejam-virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/AndreiMedvedevSaratov/codejam-virtual-keyboard#readme"
+}

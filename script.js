@@ -1,3 +1,15 @@
+// Constant Language for English or Russian keyboard layout
+var Current_Language = 'Russian';
+
+
+// Working with local storage to install saved earlier language
+if (localStorage.Stored_Language !== null && localStorage.Stored_Language !== undefined) Current_Language = localStorage.Stored_Language;
+
+
+// Constant for pressed CapsLock or not pressed CapsLock
+let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
+
+
 // Text area for output letters
 const Output_Textarea = document.createElement('textarea');       
 
@@ -84,7 +96,7 @@ const Paragraph = document.createElement('p');
 document.body.append(Paragraph);
 Paragraph.classList.add('Paragraph');
 Paragraph.textContent = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: alt + shift';
-
+ 
 
 // Key codes for every button, each key is an object
 const Key_Codes= [                                               
@@ -170,26 +182,6 @@ const Key_Codes= [
 ];
 
 
-// Constant Language for English or Russian keyboard layout
-let Current_Language = 'Russian';
-
-
-// Working with local storage to install saved earlier language
-if (localStorage.Stored_Language !== null) Current_Language = localStorage.Stored_Language;
-
-
-// Constant for pressed CapsLock or not pressed CapsLock
-let Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
-
-
-// Writing letters on buttons of keyboard
-Write_Letters_On_Keys();
-
-
-Current_Language = 'English';
-Write_Letters_On_Keys();
-
-
 // Function for writing letters on buttons of keyboard
 function Write_Letters_On_Keys() 
     {
@@ -203,16 +195,13 @@ function Write_Letters_On_Keys()
                         Main_Area.children[i].children[j].dataset.CapsEng = Key_Codes[i][j].CapsEng;
                         Main_Area.children[i].children[j].dataset.CapsRus = Key_Codes[i][j].CapsRus;
                         Main_Area.children[i].children[j].dataset.Output_Flag = Key_Codes[i][j].Output_Flag;
-                        if (Caps_Lock_Pressed === 'No') Main_Area.children[i].children[j].textContent = Key_Codes[i][j][Current_Language];
-                            else
-                                {
-                                    if (Current_Language === 'Russian') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsRus;
-                                        else Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsEng;
-                                }
-                        
+                        if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].English;
+                        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].Russian;
+                        if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsEng;
+                        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsRus;
                     }
             }
-    }
+    };
 
 
 // Constant for body
@@ -220,7 +209,7 @@ const Body = document.querySelector('body');
 
 
 // Changing language keyboard layout by pressing "Alt" + "Shift"   
-let Pressed_First_Key;
+var Pressed_First_Key = undefined;
 
 Body.addEventListener('keyup', (event) => 
     {
@@ -261,10 +250,10 @@ function Output_Printing(Letter_For_Printing)
         let Char = '';
         
         if (Letter_For_Printing.dataset.Output_Flag === 'false') return;
-        if (Current_Language === 'English' && Caps_Lock_Pressed === 'No') Char = Letter_For_Printing.dataset.English;
-        if (Current_Language === 'Russian' && Caps_Lock_Pressed === 'No')  Char = Letter_For_Printing.dataset.Russian;
-        if (Current_Language === 'English' && Caps_Lock_Pressed === 'Yes')  Char = Letter_For_Printing.dataset.CapsEng;
-        if (Current_Language === 'Russian' && Caps_Lock_Pressed === 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
+        if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Char = Letter_For_Printing.dataset.English;
+        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No')  Char = Letter_For_Printing.dataset.Russian;
+        if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsEng;
+        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
 
         Output_Textarea.textContent = Output_Textarea.textContent + Char;
     }
@@ -296,9 +285,9 @@ Body.addEventListener('keydown', (event) =>
                         }
                 } 
             case 13 :    // Enter
-                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-            case 9 :     // Tab
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+                {
+                    Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+                }
             case 16 :    // Shift 
                 {
                     if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
@@ -316,7 +305,6 @@ Main_Area.addEventListener('mousedown', event =>
         if (event.target.classList.contains('Delete')) x = 1;
         if (event.target.classList.contains('Backspace')) x = 2;
         if (event.target.classList.contains('Enter')) x = 3;
-        if (event.target.classList.contains('Tab')) x = 4;
 
         switch (x) 
         {
@@ -342,10 +330,9 @@ Main_Area.addEventListener('mousedown', event =>
                         }
                 }
             case 3 :      // Enter
-                Output_Textarea.textContent = Output_Textarea.textContent + '\n';
-            case 4 :      // Tab
-                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
-
+                {
+                    Output_Textarea.textContent = Output_Textarea.textContent + '\n';
+                }
         }
     });
 
@@ -382,13 +369,21 @@ Body.addEventListener('keydown', (event) =>
     {
         let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
     
-        Current_Element.classList.add('Button_Pressed');
-        Output_Printing(Current_Element);
+        if (Current_Element != null)
+            {
+                Current_Element.classList.add('Button_Pressed');
+                Output_Printing(Current_Element);
+            }
     });
     
 Body.addEventListener('keyup', (event) => 
     {
-        document.querySelector(`[data--key_-code="${event.code}"]`).classList.remove('Button_Pressed');
+        let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
+    
+        if (Current_Element != null)
+            {
+                Current_Element.classList.remove('Button_Pressed');
+            }
     });
 
 
@@ -411,6 +406,24 @@ Main_Area.addEventListener('mousedown', event =>
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
                     else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
+            }
+    });
+
+
+// If Tab pressed
+Body.addEventListener('keydown', (event) => 
+    {
+        if (event.keyCode === 9) 
+            {
+                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
+            }  
+    });
+
+Main_Area.addEventListener('mousedown', event => 
+    {
+        if (event.target.classList.contains('Tab')) 
+            {
+                Output_Textarea.textContent = Output_Textarea.textContent + '\t';
             }
     });
 
@@ -450,3 +463,14 @@ Main_Area.addEventListener('mouseup', event =>
         
     }); 
    
+
+
+
+// console.log ('language =' + Current_Language);
+// console.log ('Capslock =' + Caps_Lock_Pressed);
+// console.log ('localStorage.Stored_Language' + localStorage.Stored_Language);
+
+
+// Writing letters on buttons of keyboard
+Write_Letters_On_Keys();
+
