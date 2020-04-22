@@ -11,7 +11,7 @@ var Caps_Lock_Pressed = 'No';  // Can be 'Yes' or 'No'
 
 
 // Text area for output letters
-const Output_Textarea = document.createElement('textarea');       
+const Output_Textarea = document.createElement('textarea');
 
 
 // Adding textarea for output
@@ -32,30 +32,27 @@ document.body.append(Main_Area);
 // Creating rows in keyboard
 const Main_Area_Rows = new DocumentFragment();
 
-for (let i = 0; i < 5; i++) 
-    {
-        const Main_Area_Row = document.createElement('div');
+for (let i = 0; i < 5; i++) {
+    const Main_Area_Row = document.createElement('div');
 
-        Main_Area_Row.classList.add('Main_Area_Row');
-        Main_Area_Rows.append(Main_Area_Row);   
-    }
+    Main_Area_Row.classList.add('Main_Area_Row');
+    Main_Area_Rows.append(Main_Area_Row);
+}
 
 Main_Area.append(Main_Area_Rows);
 
 
 // Creating buttons in each row
-for (let i = 0; i < 5; i++) 
-    {
-        const Temp_Row = new DocumentFragment();
-        for (let i = 0; i < 15; i++) 
-            {
-                const Key = document.createElement('div');
+for (let i = 0; i < 5; i++) {
+    const Temp_Row = new DocumentFragment();
+    for (let i = 0; i < 15; i++) {
+        const Key = document.createElement('div');
 
-                Key.classList.add('Key');
-                Temp_Row.append(Key);
-            }
-        Main_Area.children[i].append(Temp_Row);
+        Key.classList.add('Key');
+        Temp_Row.append(Key);
     }
+    Main_Area.children[i].append(Temp_Row);
+}
 
 
 // Remove unnecessary buttons
@@ -92,14 +89,14 @@ Main_Area.children[4].children[8].classList.add('Arrow');
 
 
 // Info about operation system and the way to change keyboard layout
-const Paragraph = document.createElement('p');  
+const Paragraph = document.createElement('p');
 document.body.append(Paragraph);
 Paragraph.classList.add('Paragraph');
 Paragraph.textContent = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: alt + shift';
- 
+
 
 // Key codes for every button, each key is an object
-const Key_Codes= [                                               
+const Key_Codes = [
     [
         { Key_Code: 'Backquote', English: '`', Russian: 'ё', Output_Flag: true, CapsRus: 'Ё', CapsEng: '~' },
         { Key_Code: 'Digit1', English: '1', Russian: '1', Output_Flag: true, CapsRus: '!', CapsEng: '!' },
@@ -163,7 +160,7 @@ const Key_Codes= [
         { Key_Code: 'KeyM', English: 'm', Russian: 'ь', Output_Flag: true, CapsRus: 'Ь', CapsEng: 'M' },
         { Key_Code: 'Comma', English: ',', Russian: 'б', Output_Flag: true, CapsRus: 'Б', CapsEng: '<' },
         { Key_Code: 'Period', English: '.', Russian: 'ю', Output_Flag: true, CapsRus: 'Ю', CapsEng: '>' },
-        { Key_Code: 'Slash', English: '\/', Russian: '.', Output_Flag: true, CapsRus: ',', CapsEng: '?' },
+        { Key_Code: 'Slash', English: '/', Russian: '.', Output_Flag: true, CapsRus: ',', CapsEng: '?' },
         { Key_Code: 'ArrowUp', English: '▲', Russian: '▲', Output_Flag: true, CapsRus: '▲', CapsEng: '▲' },
         { Key_Code: 'ShiftRight', English: 'Shift', Russian: 'Shift', Output_Flag: false, CapsRus: 'Shift', CapsEng: 'Shift' },
     ],
@@ -183,25 +180,22 @@ const Key_Codes= [
 
 
 // Function for writing letters on buttons of keyboard
-function Write_Letters_On_Keys() 
-    {
-        for (let i = 0; i < Main_Area.children.length; i++) 
-            {
-                for (let j = 0; j < Main_Area.children[i].children.length; j++) 
-                    {
-                        Main_Area.children[i].children[j].dataset.Key_Code = Key_Codes[i][j].Key_Code;
-                        Main_Area.children[i].children[j].dataset.English = Key_Codes[i][j].English;
-                        Main_Area.children[i].children[j].dataset.Russian = Key_Codes[i][j].Russian;
-                        Main_Area.children[i].children[j].dataset.CapsEng = Key_Codes[i][j].CapsEng;
-                        Main_Area.children[i].children[j].dataset.CapsRus = Key_Codes[i][j].CapsRus;
-                        Main_Area.children[i].children[j].dataset.Output_Flag = Key_Codes[i][j].Output_Flag;
-                        if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].English;
-                        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].Russian;
-                        if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsEng;
-                        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes')  Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsRus;
-                    }
-            }
-    };
+function Write_Letters_On_Keys() {
+    for (let i = 0; i < Main_Area.children.length; i++) {
+        for (let j = 0; j < Main_Area.children[i].children.length; j++) {
+            Main_Area.children[i].children[j].dataset.Key_Code = Key_Codes[i][j].Key_Code;
+            Main_Area.children[i].children[j].dataset.English = Key_Codes[i][j].English;
+            Main_Area.children[i].children[j].dataset.Russian = Key_Codes[i][j].Russian;
+            Main_Area.children[i].children[j].dataset.CapsEng = Key_Codes[i][j].CapsEng;
+            Main_Area.children[i].children[j].dataset.CapsRus = Key_Codes[i][j].CapsRus;
+            Main_Area.children[i].children[j].dataset.Output_Flag = Key_Codes[i][j].Output_Flag;
+            if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].English;
+            if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].Russian;
+            if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsEng;
+            if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes') Main_Area.children[i].children[j].textContent = Key_Codes[i][j].CapsRus;
+        }
+    }
+}
 
 
 // Constant for body
@@ -211,257 +205,223 @@ const Body = document.querySelector('body');
 // Changing language keyboard layout by pressing "Alt" + "Shift"   
 var Pressed_First_Key = undefined;
 
-Body.addEventListener('keyup', (event) => 
-    {
-        if (event.keyCode === 16 || event.keyCode === 18) 
-            {
-                Pressed_First_Key = undefined;
-            }
-    });
+Body.addEventListener('keyup', (event) => {
+    if (event.keyCode === 16 || event.keyCode === 18) {
+        Pressed_First_Key = undefined;
+    }
+});
 
-Body.addEventListener('keydown', (event) => 
-    {
-        event.preventDefault();
-        if ((Pressed_First_Key === 16 && event.keyCode === 18) || (Pressed_First_Key === 18 && event.keyCode === 16)) 
-            {
-                if (Current_Language === 'English') 
-                    {
-                        Current_Language = 'Russian';
-                        localStorage.Stored_Language = "Russian";  // Working with local storage to save selected language
-                    }
-                    else 
-                        {
-                            Current_Language = 'English';
-                            localStorage.Stored_Language = "English";  // Working with local storage to save selected language
-                        }
-                Write_Letters_On_Keys();
-                return;
-            }  
-        if (event.keyCode === 16 || event.keyCode === 18) 
-            {
-                Pressed_First_Key = event.keyCode;
-            }
-    });
-    
+Body.addEventListener('keydown', (event) => {
+    event.preventDefault();
+    if ((Pressed_First_Key === 16 && event.keyCode === 18) || (Pressed_First_Key === 18 && event.keyCode === 16)) {
+        if (Current_Language === 'English') {
+            Current_Language = 'Russian';
+            localStorage.Stored_Language = "Russian";  // Working with local storage to save selected language
+        }
+        else {
+            Current_Language = 'English';
+            localStorage.Stored_Language = "English";  // Working with local storage to save selected language
+        }
+        Write_Letters_On_Keys();
+        return;
+    }
+    if (event.keyCode === 16 || event.keyCode === 18) {
+        Pressed_First_Key = event.keyCode;
+    }
+});
+
 
 // Function for printing letter in output text area
-function Output_Printing(Letter_For_Printing) 
-    {
-        let Char = '';
-      
-        if (Letter_For_Printing.dataset.Output_Flag === 'false') return;
-        if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Char = Letter_For_Printing.dataset.English;
-        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No')  Char = Letter_For_Printing.dataset.Russian;
-        if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsEng;
-        if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes')  Char = Letter_For_Printing.dataset.CapsRus;
+function Output_Printing(Letter_For_Printing) {
+    let Char = '';
 
-        Output_Textarea.value = Output_Textarea.value + Char;
-    }
+    if (Letter_For_Printing.dataset.Output_Flag === 'false') return;
+    if (Current_Language == 'English' && Caps_Lock_Pressed == 'No') Char = Letter_For_Printing.dataset.English;
+    if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'No') Char = Letter_For_Printing.dataset.Russian;
+    if (Current_Language == 'English' && Caps_Lock_Pressed == 'Yes') Char = Letter_For_Printing.dataset.CapsEng;
+    if (Current_Language == 'Russian' && Caps_Lock_Pressed == 'Yes') Char = Letter_For_Printing.dataset.CapsRus;
 
-
-Body.addEventListener('keydown', (event) => 
-    {
-        switch (event.keyCode) 
-        {
-            case 8 :     // Backspace
-                {
-                    let Text = Output_Textarea.value;
-                    const Sel_Start = Output_Textarea.selectionStart;
-                    if (Sel_Start > 0 && Sel_Start <= Text.length) 
-                        {
-                            Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
-                            Output_Textarea.value = Text;
-                            Output_Textarea.selectionStart = Sel_Start - 1;
-                            Output_Textarea.selectionEnd = Sel_Start - 1;
-                        }
-                }  
-                break;
-            case 46 :    // Delete 
-                {
-                    if (Output_Textarea.selectionStart <= Output_Textarea.value.length) 
-                        {
-                            Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
-                                + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
-                            Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
-                        }
-                } 
-                break;
-            case 13 :    // Enter
-                {
-                    Output_Textarea.value = Output_Textarea.value + '\n';
-                }
-                break;
-            case 16 :    // Shift 
-                {
-                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                        else Caps_Lock_Pressed = 'Yes';
-                    Write_Letters_On_Keys();
-                }
-                break;
-            case 20 :    // CapsLock
-                {
-                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                        else Caps_Lock_Pressed = 'Yes';
-                    Write_Letters_On_Keys();
-                }
-                break;
-            case 9 :     // Tab
-                {
-                    Output_Textarea.value = Output_Textarea.value + '\t';
-                }
-                break;
-        }      
-    });
+    Output_Textarea.value = Output_Textarea.value + Char;
+}
 
 
-Main_Area.addEventListener('mousedown', event => 
-    {
-        let x = 0;
-
-        if (event.target.classList.contains('Delete')) x = 1;
-        if (event.target.classList.contains('Backspace')) x = 2;
-        if (event.target.classList.contains('Enter')) x = 3;
-        if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) x = 4;
-
-        switch (x) 
-        {
-            case 1 :      // Delete
-                {
-                    if (Output_Textarea.selectionStart <= Output_Textarea.value.length) 
-                    {
-                        Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
-                            + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
-                        Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
-                    }
-                    break;
-                }
-            case 2 :      // Backspace
-                {
-                    let Text = Output_Textarea.value;
-                    const Sel_Start = Output_Textarea.selectionStart;
-                    if (Sel_Start > 0 && Sel_Start <= Text.length) 
-                        {
-                            Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
-                            Output_Textarea.value = Text;
-                            Output_Textarea.selectionStart = Sel_Start - 1;
-                            Output_Textarea.selectionEnd = Sel_Start - 1;
-                        }
-                    break;
-                }
-            case 3 :      // Enter
-                {
-                    Output_Textarea.value = Output_Textarea.value + '\n';
-                    break;
-                }
-            case 4 :      // Shift
-                {
-                    if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                        else Caps_Lock_Pressed = 'Yes';
-                    Write_Letters_On_Keys();
-                    break;
-                }
-        }
-    });
-
-
-// What to do if click by left button of Mouse?
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Key')) 
+Body.addEventListener('keydown', (event) => {
+    switch (event.keyCode) {
+        case 8:     // Backspace
             {
-                Output_Printing(event.target);
-                event.target.classList.add('Button_Pressed');
+                let Text = Output_Textarea.value;
+                const Sel_Start = Output_Textarea.selectionStart;
+                if (Sel_Start > 0 && Sel_Start <= Text.length) {
+                    Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
+                    Output_Textarea.value = Text;
+                    Output_Textarea.selectionStart = Sel_Start - 1;
+                    Output_Textarea.selectionEnd = Sel_Start - 1;
+                }
             }
-    });
-
-Main_Area.addEventListener('mouseup', event => 
-    {
-        if (event.target.classList.contains('Key')) 
+            break;
+        case 46:    // Delete 
             {
-                event.target.classList.remove('Button_Pressed');
+                if (Output_Textarea.selectionStart <= Output_Textarea.value.length) {
+                    Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
+                        + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
+                    Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
+                }
             }
-    });
-
-Main_Area.addEventListener('mouseout', event => 
-    {
-        if (event.target.classList.contains('Key')) 
+            break;
+        case 13:    // Enter
             {
-                event.target.classList.remove('Button_Pressed');
+                Output_Textarea.value = Output_Textarea.value + '\n';
             }
-    });
-
-
-// What to do if button pressed
-Body.addEventListener('keydown', (event) => 
-    {
-        let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
-    
-        if (Current_Element != null)
+            break;
+        case 16:    // Shift 
             {
-                Current_Element.classList.add('Button_Pressed');
-                Output_Printing(Current_Element);
-            }
-    });
-    
-Body.addEventListener('keyup', (event) => 
-    {
-        let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
-    
-        if (Current_Element != null)
-            {
-                Current_Element.classList.remove('Button_Pressed');
-            }
-    });
-
-
-// If CapsLock pressed changing keyboard state 
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('CapsLock')) 
-            {
-                event.target.classList.add('Button_Pressed');
                 if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
+                else Caps_Lock_Pressed = 'Yes';
                 Write_Letters_On_Keys();
             }
-    });
-
-
-// If Tab pressed
-Main_Area.addEventListener('mousedown', event => 
-    {
-        if (event.target.classList.contains('Tab')) 
+            break;
+        case 20:    // CapsLock
+            {
+                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+                else Caps_Lock_Pressed = 'Yes';
+                Write_Letters_On_Keys();
+            }
+            break;
+        case 9:     // Tab
             {
                 Output_Textarea.value = Output_Textarea.value + '\t';
             }
-    });
+            break;
+    }
+});
+
+
+Main_Area.addEventListener('mousedown', event => {
+    let x = 0;
+
+    if (event.target.classList.contains('Delete')) x = 1;
+    if (event.target.classList.contains('Backspace')) x = 2;
+    if (event.target.classList.contains('Enter')) x = 3;
+    if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) x = 4;
+
+    switch (x) {
+        case 1:      // Delete
+            {
+                if (Output_Textarea.selectionStart <= Output_Textarea.value.length) {
+                    Output_Textarea.value = Output_Textarea.value.slice(0, Output_Textarea.selectionStart)
+                        + Output_Textarea.value.slice(Output_Textarea.selectionStart, Output_Textarea.value.length);
+                    Output_Textarea.setRangeText("", Output_Textarea.selectionStart, Output_Textarea.selectionStart + 1, "end");
+                }
+                break;
+            }
+        case 2:      // Backspace
+            {
+                let Text = Output_Textarea.value;
+                const Sel_Start = Output_Textarea.selectionStart;
+                if (Sel_Start > 0 && Sel_Start <= Text.length) {
+                    Text = Text.slice(0, Sel_Start - 1) + Text.slice(Sel_Start, Text.length);
+                    Output_Textarea.value = Text;
+                    Output_Textarea.selectionStart = Sel_Start - 1;
+                    Output_Textarea.selectionEnd = Sel_Start - 1;
+                }
+                break;
+            }
+        case 3:      // Enter
+            {
+                Output_Textarea.value = Output_Textarea.value + '\n';
+                break;
+            }
+        case 4:      // Shift
+            {
+                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+                else Caps_Lock_Pressed = 'Yes';
+                Write_Letters_On_Keys();
+                break;
+            }
+    }
+});
+
+
+// What to do if click by left button of Mouse?
+Main_Area.addEventListener('mousedown', event => {
+    if (event.target.classList.contains('Key')) {
+        Output_Printing(event.target);
+        event.target.classList.add('Button_Pressed');
+    }
+});
+
+Main_Area.addEventListener('mouseup', event => {
+    if (event.target.classList.contains('Key')) {
+        event.target.classList.remove('Button_Pressed');
+    }
+});
+
+Main_Area.addEventListener('mouseout', event => {
+    if (event.target.classList.contains('Key')) {
+        event.target.classList.remove('Button_Pressed');
+    }
+});
+
+
+// What to do if button pressed
+Body.addEventListener('keydown', (event) => {
+    let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
+
+    if (Current_Element != null) {
+        Current_Element.classList.add('Button_Pressed');
+        Output_Printing(Current_Element);
+    }
+});
+
+Body.addEventListener('keyup', (event) => {
+    let Current_Element = document.querySelector(`[data--key_-code="${event.code}"]`);
+
+    if (Current_Element != null) {
+        Current_Element.classList.remove('Button_Pressed');
+    }
+});
+
+
+// If CapsLock pressed changing keyboard state 
+Main_Area.addEventListener('mousedown', event => {
+    if (event.target.classList.contains('CapsLock')) {
+        event.target.classList.add('Button_Pressed');
+        if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+        else Caps_Lock_Pressed = 'Yes';
+        Write_Letters_On_Keys();
+    }
+});
+
+
+// If Tab pressed
+Main_Area.addEventListener('mousedown', event => {
+    if (event.target.classList.contains('Tab')) {
+        Output_Textarea.value = Output_Textarea.value + '\t';
+    }
+});
 
 
 // If Shift pressed changing keyboard state
-Body.addEventListener('keyup', (event) => 
-    {
-        if (event.keyCode === 16) 
-            {
-                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
-                Write_Letters_On_Keys();
-            }  
-    });
+Body.addEventListener('keyup', (event) => {
+    if (event.keyCode === 16) {
+        if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+        else Caps_Lock_Pressed = 'Yes';
+        Write_Letters_On_Keys();
+    }
+});
 
 
 // Pressing on Shift by mouse   
-Main_Area.addEventListener('mouseup', event => 
-    {
-        if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) 
-            {
-                if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
-                    else Caps_Lock_Pressed = 'Yes';
-                Write_Letters_On_Keys();
-            }
-        
-    }); 
-   
+Main_Area.addEventListener('mouseup', event => {
+    if (event.target.classList.contains('ShiftLeft') || event.target.classList.contains('ShiftRight')) {
+        if (Caps_Lock_Pressed === 'Yes') Caps_Lock_Pressed = 'No';
+        else Caps_Lock_Pressed = 'Yes';
+        Write_Letters_On_Keys();
+    }
 
-    // Writing letters on buttons of keyboard
+});
+
+
+// Writing letters on buttons of keyboard
 Write_Letters_On_Keys();
 
