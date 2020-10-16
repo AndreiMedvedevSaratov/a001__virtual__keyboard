@@ -1,5 +1,13 @@
-# codejam-virtual-keyboard
+# Virtual__Keyboard
 
-Here is my project:
+This project was created with JS.
 
-https://andreimedvedevsaratov.github.io/codejam-virtual-keyboard/
+I like design and 3D volume for keys.
+
+Status of project: Done!
+
+Deploy: https://andreimedvedevsaratov.github.io/Virtual__Keyboard/
+
+For any additional information, feel free to contact with me by:
+Tel: +7-917-215-19-68
+e-mail: andreiok@gmail.com
