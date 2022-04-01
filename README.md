@@ -6,7 +6,7 @@ I like design and 3D volume for keys.
 
 Status of project: Done!
 
-Deploy: https://andreimedvedevsaratov.github.io/Virtual__Keyboard/
+Deploy: https://andreimedvedevsaratov.github.io/a001__virtual__keyboard/
 
 Technolody: JS
 
